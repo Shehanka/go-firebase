@@ -17,7 +17,7 @@ type Author struct {
 // Book Struct (Model)
 type Book struct {
 	ID     string  `json:"id"`
-	Isbm   string  `json:"isbn"`
+	Isbn   string  `json:"isbn"`
 	Title  string  `json:"title"`
 	Author *Author `json:"author"`
 }
@@ -50,6 +50,17 @@ func removeBook(w http.ResponseWriter, r *http.Request) {
 func main() {
 	// Init Router
 	r := mux.NewRouter()
+
+	// Mock Data - @todo - impl DB
+	books = append(books, Book{ID: "1", Isbn: "448743", Title: "Book One", 
+	Author: &Author{
+		FirstName: "John", LastName: "Doe"
+	}})
+
+	books = append(books, Book{ID: "2", Isbn: "448778", Title: "Book Two", 
+	Author: &Author{
+		FirstName: "Steve", LastName: "Smith"
+	}})
 
 	// Router Handlers / EndPoints
 	r.HandleFunc("/api/books", getBooks).Methods("GET")
